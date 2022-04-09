@@ -43,31 +43,68 @@ class Play extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 9, first: 0}),
             frameRate: 30
         });
+
+        // initialize score
+        this.p1Score = 0;
+
+        // display score
+        let scoreConfig = {
+            fontFamily: 'Courier',
+            fontSize: '28px',
+            backgroundColor: '#F3B141',
+            color: '#843605',
+            align: 'right',
+            padding: {
+            top: 5,
+            bottom: 5,
+            },
+            fixedWidth: 100
+        }
+        this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, scoreConfig);
+
+        // GAME OVER flag
+        this.gameOver = false;
+
+        // 60-second play clock
+        scoreConfig.fixedWidth = 0;
+        this.clock = this.time.delayedCall(60000, () => {
+            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
+            this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart', scoreConfig).setOrigin(0.5);
+            this.gameOver = true;
+        }, null, this);
     }
 
     update() {
-        this.starfield.tilePositionX -= 4;
-        let rocketSpeed = 4;
-        if (keyLEFT.isDown)
-            this.p1Rocket.x -= rocketSpeed
-        if (keyRIGHT.isDown)
-            this.p1Rocket.x += rocketSpeed
-        
-        if (Phaser.Input.Keyboard.JustDown(keyF))
-            this.p1Rocket.isFiring = true;
+        // check key input for restart
+        if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyR)) {
+            this.scene.restart();
+        }
 
-        this.p1Rocket.update();
-        
-        for (let ship of this.ships)
-            ship.update();
-        
-        // check collisions
-        for (let ship of this.ships)
-            if (this.checkCollision(this.p1Rocket, ship)) {
-                this.p1Rocket.reset();
-                this.shipExplode(ship);
+        this.starfield.tilePositionX -= 4;
+
+        if (!this.gameOver) {
+            let rocketSpeed = 4;
+            if (keyLEFT.isDown)
+                this.p1Rocket.x -= rocketSpeed;
+            if (keyRIGHT.isDown)
+                this.p1Rocket.x += rocketSpeed;
+            
+            if (Phaser.Input.Keyboard.JustDown(keyF))
+                this.p1Rocket.isFiring = true;
+    
+            this.p1Rocket.update();
+            
+            for (let ship of this.ships)
+                ship.update();
+            
+            // check collisions
+            for (let ship of this.ships) {
+                if (this.checkCollision(this.p1Rocket, ship)) {
+                    this.p1Rocket.reset();
+                    this.shipExplode(ship);
+                }
             }
-        
+        }
     }
 
     checkCollision(rocket, ship) {
@@ -92,6 +129,9 @@ class Play extends Phaser.Scene {
             ship.reset();                       // reset ship position
             ship.alpha = 1;                     // make ship visible again
             boom.destroy();                     // remove explosion sprite
-        });       
+        });
+        // score add and repaint
+        this.p1Score += ship.points;
+        this.scoreLeft.text = this.p1Score; 
       }
 }
