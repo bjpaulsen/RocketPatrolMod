@@ -80,6 +80,7 @@ class Play extends Phaser.Scene {
             this.scene.restart();
         }
 
+        // scroll starfield
         this.starfield.tilePositionX -= 4;
 
         if (!this.gameOver) {    
