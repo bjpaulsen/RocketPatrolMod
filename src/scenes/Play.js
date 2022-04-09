@@ -82,13 +82,7 @@ class Play extends Phaser.Scene {
 
         this.starfield.tilePositionX -= 4;
 
-        if (!this.gameOver) {
-            let rocketSpeed = 4;
-            if (keyLEFT.isDown)
-                this.p1Rocket.x -= rocketSpeed;
-            if (keyRIGHT.isDown)
-                this.p1Rocket.x += rocketSpeed;
-    
+        if (!this.gameOver) {    
             this.p1Rocket.update();
             
             for (let ship of this.ships)
