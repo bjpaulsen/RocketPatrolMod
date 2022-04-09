@@ -88,9 +88,6 @@ class Play extends Phaser.Scene {
                 this.p1Rocket.x -= rocketSpeed;
             if (keyRIGHT.isDown)
                 this.p1Rocket.x += rocketSpeed;
-            
-            if (Phaser.Input.Keyboard.JustDown(keyF))
-                this.p1Rocket.isFiring = true;
     
             this.p1Rocket.update();
             
@@ -133,5 +130,7 @@ class Play extends Phaser.Scene {
         // score add and repaint
         this.p1Score += ship.points;
         this.scoreLeft.text = this.p1Score; 
-      }
+
+        this.sound.play('sfx_explosion');
+    }
 }
