@@ -25,7 +25,7 @@ class Play extends Phaser.Scene {
         this.ships = [];
         let numShips = 3;
         for (let i = 0; i < numShips; i++)
-            this.ships[i] = new Spaceship(this, game.config.width, 150+i*100, 'spaceship').setOrigin(.5, .5);
+            this.ships[i] = new Spaceship(this, game.config.width, 150+i*100, 'spaceship').setOrigin(-.2, 0);
 
         // white borders
         this.add.rectangle(0, 0, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0, 0);
@@ -33,7 +33,7 @@ class Play extends Phaser.Scene {
         this.add.rectangle(0, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0);
         this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0);
 
-        this.p1Rocket = new Rocket(this, game.config.width/2, 431, 'rocket').setOrigin(0.5, 0);
+        this.p1Rocket = new Rocket(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'rocket').setOrigin(0.5, 0);
     }
 
     update() {
@@ -51,5 +51,23 @@ class Play extends Phaser.Scene {
         
         for (let ship of this.ships)
             ship.update();
+        
+        // check collisions
+        for (let ship of this.ships)
+            if (this.checkCollision(this.p1Rocket, ship))
+                this.p1Rocket.reset();
+        
+    }
+
+    checkCollision(rocket, ship) {
+        // simple AABB checking
+        if (rocket.x < ship.x + ship.width && 
+            rocket.x + rocket.width > ship.x && 
+            rocket.y < ship.y + ship.height &&
+            rocket.height + rocket.y > ship. y) {
+                return true;
+        } else {
+            return false;
+        }
     }
 }
