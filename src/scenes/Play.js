@@ -5,6 +5,7 @@ class Play extends Phaser.Scene {
 
     preload() {
         this.load.image("starfield", "assets/starfield.png");
+        this.load.image("starfield_parallax", "assets/starfield_parallax.png");
         this.load.image("rocket", "assets/rocket.png");
         this.load.image("spaceship", "assets/spaceship.png");
         this.load.image("small_spaceship", "assets/small_spaceship.png");
@@ -21,6 +22,7 @@ class Play extends Phaser.Scene {
 
         // place tile sprite
         this.starfield = this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0, 0);
+        this.starfield_parallax = this.add.tileSprite(0, 0, 640, 480, 'starfield_parallax').setOrigin(0, 0);
 
         // green UI background
         this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x00FF00).setOrigin(0, 0);
@@ -78,7 +80,8 @@ class Play extends Phaser.Scene {
 
     update() {
         // scroll starfield
-        this.starfield.tilePositionX -= 4;
+        this.starfield.tilePositionX -= 2.25;
+        this.starfield_parallax.tilePositionX -= 2.75;
 
         if (this.gameOver) { 
             if (Phaser.Input.Keyboard.JustDown(keyLEFT)) {
