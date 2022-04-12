@@ -3,16 +3,15 @@
 // DATE, TIME_TO_COMPLETE
 
 // POINTS BREAKDOWN
-// - Create new artwork for all of the in-game assets (rocket, spaceships, explosion) (20) 
+// - Create new artwork for all of the in-game assets (rocket, spaceships, explosion) (20)
 // - Implement a new timing/scoring mechanism that adds time to the clock for successful hits (20)
 // - Use Phaser's particle emitter to create a particle explosion when the rocket hits the spaceship (20)
+// - Create a new spaceship type (w/ new artwork) that's smaller, moves faster, and is worth more points (20)
 // - Implement parallax scrolling (10)
-// - Create a new animated sprite for the Spaceship enemies (10)
 // - Add your own (copyright-free) background music to the Play scene (5)
-// - Randomize each spaceship's movement direction at the start of each play (5)
-// - Create a new scrolling tile sprite for the background (5)
 // - Implement the speed increase that happens after 30 seconds in the original game (5)
-// TOTAL: 100
+// TOTAL: 105
+
 
 let config = {
     width: 640,
