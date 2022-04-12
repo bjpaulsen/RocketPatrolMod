@@ -10,7 +10,7 @@
 // - Implement parallax scrolling (10)
 // - Add your own (copyright-free) background music to the Play scene (5)
 // - Implement the speed increase that happens after 30 seconds in the original game (5)
-// TOTAL: 105
+// TOTAL: 100
 
 
 let config = {
