@@ -7,6 +7,7 @@ class Play extends Phaser.Scene {
         this.load.image("starfield", "assets/starfield.png");
         this.load.image("rocket", "assets/rocket.png");
         this.load.image("spaceship", "assets/spaceship.png");
+        this.load.image("small_spaceship", "assets/small_spaceship.png");
         // load spritesheet
         this.load.spritesheet('explosion', './assets/explosion.png', {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
     }
@@ -24,11 +25,12 @@ class Play extends Phaser.Scene {
         // green UI background
         this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x00FF00).setOrigin(0, 0);
         
+        // spawn ships
         this.ships = [];
-        let numShips = 3;
+        let numShips = 5;
         for (let i = 0; i < numShips; i++)
-            this.ships[i] = new Spaceship(this, game.config.width+borderUISize*i*3, borderUISize*(i+4)+borderPadding*i*2, 'spaceship', 0, 10).setOrigin(0,0);
-
+            this.ships[i] = new Spaceship(this, game.config.width+borderUISize*i*3, borderUISize*(i+4)+borderPadding*i*2, i%2==0 ? 'spaceship' : 'small_spaceship', i%2==0 ? 'large' : 'small').setOrigin(0,0);
+        
         // white borders
         this.add.rectangle(0, 0, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0, 0);
         this.add.rectangle(0, game.config.height - borderUISize, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0, 0);
