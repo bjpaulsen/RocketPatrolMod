@@ -64,7 +64,7 @@ class Play extends Phaser.Scene {
             },
             fixedWidth: 100
         }
-        this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, scoreConfig);
+        this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize*2 + borderPadding, this.p1Score, scoreConfig).setOrigin(.5);
 
         // GAME OVER flag
         this.gameOver = false;
@@ -76,10 +76,15 @@ class Play extends Phaser.Scene {
             this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or ← for Menu', scoreConfig).setOrigin(0.5);
             this.gameOver = true;
         }, null, this);
+        
         // Speed-up clock
         this.speedClock = this.time.delayedCall(game.settings.gameTimer/2, () => {
             game.settings.speedMultiplier = 1.5;
         }, null, this);
+
+        // Setup clock update loop
+        this.timeDisplay = this.add.text(game.config.width - borderUISize*3, borderUISize*2 + borderPadding, this.clock.getOverallRemainingSeconds(), scoreConfig).setOrigin(.5);
+        this.setClock();
     }
 
     update() {
@@ -138,5 +143,12 @@ class Play extends Phaser.Scene {
         this.scoreLeft.text = this.p1Score; 
 
         this.sound.play('sfx_explosion');
+    }
+
+    setClock() {
+        // update clock text
+        this.timeDisplay.setText(Math.round(this.clock.getOverallRemainingSeconds()));
+        // call this function again later
+        this.time.delayedCall(250, this.setClock, null, this);
     }
 }
