@@ -39,7 +39,7 @@ class Play extends Phaser.Scene {
         this.add.rectangle(0, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0);
         this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0);
 
-        this.p1Rocket = new Rocket(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'rocket').setOrigin(0.5, 0);
+        this.p1Rocket = new Rocket(this, game.config.width/2, game.config.height - borderUISize - borderPadding*2, 'rocket').setOrigin(0.5, 0);
 
         // animation config
         this.anims.create({
@@ -69,19 +69,23 @@ class Play extends Phaser.Scene {
         // GAME OVER flag
         this.gameOver = false;
 
-        // 60-second play clock
+        // Play clock
         scoreConfig.fixedWidth = 0;
         this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
             this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
             this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or ← for Menu', scoreConfig).setOrigin(0.5);
             this.gameOver = true;
         }, null, this);
+        // Speed-up clock
+        this.speedClock = this.time.delayedCall(game.settings.gameTimer/2, () => {
+            game.settings.speedMultiplier = 1.5;
+        }, null, this);
     }
 
     update() {
         // scroll starfield
-        this.starfield.tilePositionX -= 2.25;
-        this.starfield_parallax.tilePositionX -= 2.75;
+        this.starfield.tilePositionX -= 2.25 * game.settings.speedMultiplier;
+        this.starfield_parallax.tilePositionX -= 2.75 * game.settings.speedMultiplier;
 
         if (this.gameOver) { 
             if (Phaser.Input.Keyboard.JustDown(keyLEFT)) {
