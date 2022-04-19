@@ -52,7 +52,7 @@ class Play extends Phaser.Scene {
         this.p1Score = 0;
 
         // display score
-        let scoreConfig = {
+        this.scoreConfig = {
             fontFamily: 'Courier',
             fontSize: '28px',
             backgroundColor: '#F3B141',
@@ -64,18 +64,24 @@ class Play extends Phaser.Scene {
             },
             fixedWidth: 100
         }
-        this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize*2 + borderPadding, this.p1Score, scoreConfig).setOrigin(.5);
+        this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize*2 + borderPadding, this.p1Score, this.scoreConfig).setOrigin(.5);
 
         // GAME OVER flag
         this.gameOver = false;
 
         // Play clock
-        scoreConfig.fixedWidth = 0;
-        this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
-            this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
-            this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or ← for Menu', scoreConfig).setOrigin(0.5);
-            this.gameOver = true;
-        }, null, this);
+        // Help from Salil Tantamajarik
+        // change to use config object 
+        // this.time.addEvent
+
+        this.timerConfig = {
+            delay: game.settings.gameTimer,
+            callback: this.endGame,
+            callbackScope: this
+        };
+
+        this.scoreConfig.fixedWidth = 0;
+        this.clock = this.time.addEvent(this.timerConfig);
         
         // Speed-up clock
         this.speedClock = this.time.delayedCall(game.settings.gameTimer/2, () => {
@@ -83,7 +89,7 @@ class Play extends Phaser.Scene {
         }, null, this);
 
         // Setup clock update loop
-        this.timeDisplay = this.add.text(game.config.width - borderUISize*3, borderUISize*2 + borderPadding, this.clock.getOverallRemainingSeconds(), scoreConfig).setOrigin(.5);
+        this.timeDisplay = this.add.text(game.config.width - borderUISize*3, borderUISize*2 + borderPadding, this.clock.getOverallRemainingSeconds(), this.scoreConfig).setOrigin(.5);
         this.setClock();
     }
 
@@ -142,6 +148,14 @@ class Play extends Phaser.Scene {
         this.p1Score += ship.points;
         this.scoreLeft.text = this.p1Score; 
 
+        let resetTimerConfig = {
+            delay: this.clock.getOverallRemaining() + 2000,
+            callback: this.endGame,
+            callbackScope: this
+        };
+
+        this.clock.reset(resetTimerConfig);
+
         this.sound.play('sfx_explosion');
     }
 
@@ -149,6 +163,12 @@ class Play extends Phaser.Scene {
         // update clock text
         this.timeDisplay.setText(Math.round(this.clock.getOverallRemainingSeconds()));
         // call this function again later
-        this.time.delayedCall(250, this.setClock, null, this);
+        this.time.delayedCall(100, this.setClock, null, this);
+    }
+
+    endGame() {
+        this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', this.scoreConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or ← for Menu', this.scoreConfig).setOrigin(0.5);
+        this.gameOver = true;
     }
 }
