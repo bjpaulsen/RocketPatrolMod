@@ -11,9 +11,19 @@ class Play extends Phaser.Scene {
         this.load.image("small_spaceship", "assets/small_spaceship.png");
         // load spritesheet
         this.load.spritesheet('explosion', './assets/explosion.png', {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
+        // load music
+        this.load.audio("music", ["./assets/song_for_rocket_patrol.mp3"]);
     }
 
     create() {
+        // start music
+        this.music = this.sound.add("music", { loop: true });
+        this.music.setVolume(1);
+        this.music.play();
+
+        this.sfxExplosion = this.sound.add('sfx_explosion');
+        this.sfxExplosion.setVolume(.08);
+
         // define keys
         keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
@@ -156,7 +166,7 @@ class Play extends Phaser.Scene {
 
         this.clock.reset(resetTimerConfig);
 
-        this.sound.play('sfx_explosion');
+        this.sfxExplosion.play();
     }
 
     setClock() {

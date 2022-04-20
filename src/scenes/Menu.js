@@ -11,6 +11,9 @@ class Menu extends Phaser.Scene {
       }
 
     create() {
+        this.sfxSelect = this.sound.add('sfx_select');
+        this.sfxSelect.setVolume(.1);
+
         let menuConfig = {
             fontFamily: 'Courier',
             fontSize: '28px',
@@ -45,7 +48,7 @@ class Menu extends Phaser.Scene {
                 speedMultiplier: 1,
                 gameTimer: 45000    
             }
-            this.sound.play('sfx_select');
+            this.sfxSelect.play();
             this.scene.start('playScene');    
         }
         if (Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
@@ -56,7 +59,7 @@ class Menu extends Phaser.Scene {
                 speedMultiplier: 1,
                 gameTimer: 20000    
             }
-            this.sound.play('sfx_select');
+            this.sfxSelect.play();
             this.scene.start('playScene');    
         }
     }
