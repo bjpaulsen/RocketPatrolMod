@@ -4,6 +4,16 @@ class Spaceship extends Phaser.GameObjects.Sprite {
         scene.add.existing(this);
         this.type = type;
         this.points = type === 'large' ? 10 : 20;
+
+        this.particles = scene.add.particles('particle');
+
+        this.emitter = this.particles.createEmitter();
+
+        this.emitter.setSpeed(300);
+        this.emitter.setQuantity(20);
+        this.emitter.setFrequency(-1);
+        this.emitter.setGravity(200, 600);
+        this.emitter.startFollow(this);
     }
 
     update() {
@@ -16,5 +26,9 @@ class Spaceship extends Phaser.GameObjects.Sprite {
     
     reset() {
         this.x = game.config.width;
+    }
+
+    explode() {
+        this.emitter.explode();
     }
 }

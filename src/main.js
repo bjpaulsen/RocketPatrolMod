@@ -5,7 +5,7 @@
 // POINTS BREAKDOWN
 // X Create new artwork for all of the in-game assets (rocket, spaceships, explosion) (20)
 // X Implement a new timing/scoring mechanism that adds time to the clock for successful hits (20)
-// - Use Phaser's particle emitter to create a particle explosion when the rocket hits the spaceship (20)
+// X Use Phaser's particle emitter to create a particle explosion when the rocket hits the spaceship (20)
 // X Create a new spaceship type (w/ new artwork) that's smaller, moves faster, and is worth more points (20)
 // X Implement parallax scrolling (10)
 // X Add your own (copyright-free) background music to the Play scene (5)
