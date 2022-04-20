@@ -1,6 +1,6 @@
 // Benjamin Paulsen
 // RocketPatrolMod
-// DATE, TIME_TO_COMPLETE
+// 4/20/22, ~15 hours
 
 // POINTS BREAKDOWN
 // - Create new artwork for all of the in-game assets (rocket, spaceships, explosion) (20)
@@ -11,6 +11,9 @@
 // - Add your own (copyright-free) background music to the Play scene (5)
 // - Implement the speed increase that happens after 30 seconds in the original game (5)
 // TOTAL: 100
+
+// CREDIT
+// Got advice from Salil Tantamajarik on how to implement a dynamic timer. See Play.js line 84
 
 
 let config = {

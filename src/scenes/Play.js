@@ -81,9 +81,9 @@ class Play extends Phaser.Scene {
         this.gameOver = false;
 
         // Play clock
-        // Help from Salil Tantamajarik
-        // change to use config object 
-        // this.time.addEvent
+        // Got help in section from Salil Tantamajarik
+        // advised me to use config object to begin timer
+        // using this.time.addEvent() rather than .delayedCall()
 
         this.timerConfig = {
             delay: game.settings.gameTimer,
