@@ -95,7 +95,7 @@ class Play extends Phaser.Scene {
         this.clock = this.time.addEvent(this.timerConfig);
         
         // Speed-up clock
-        this.speedClock = this.time.delayedCall(game.settings.gameTimer/2, () => {
+        this.speedClock = this.time.delayedCall(30000, () => {
             game.settings.speedMultiplier = 1.5;
         }, null, this);
 
