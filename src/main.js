@@ -3,13 +3,13 @@
 // DATE, TIME_TO_COMPLETE
 
 // POINTS BREAKDOWN
-// X Create new artwork for all of the in-game assets (rocket, spaceships, explosion) (20)
-// X Implement a new timing/scoring mechanism that adds time to the clock for successful hits (20)
-// X Use Phaser's particle emitter to create a particle explosion when the rocket hits the spaceship (20)
-// X Create a new spaceship type (w/ new artwork) that's smaller, moves faster, and is worth more points (20)
-// X Implement parallax scrolling (10)
-// X Add your own (copyright-free) background music to the Play scene (5)
-// X Implement the speed increase that happens after 30 seconds in the original game (5)
+// - Create new artwork for all of the in-game assets (rocket, spaceships, explosion) (20)
+// - Implement a new timing/scoring mechanism that adds time to the clock for successful hits (20)
+// - Use Phaser's particle emitter to create a particle explosion when the rocket hits the spaceship (20)
+// - Create a new spaceship type (w/ new artwork) that's smaller, moves faster, and is worth more points (20)
+// - Implement parallax scrolling (10)
+// - Add your own (copyright-free) background music to the Play scene (5)
+// - Implement the speed increase that happens after 30 seconds in the original game (5)
 // TOTAL: 100
 
 
