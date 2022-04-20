@@ -9,10 +9,10 @@ class Spaceship extends Phaser.GameObjects.Sprite {
 
         this.emitter = this.particles.createEmitter();
 
-        this.emitter.setSpeed(300);
-        this.emitter.setQuantity(20);
+        this.emitter.setSpeed(200);
+        this.emitter.setQuantity(30);
         this.emitter.setFrequency(-1);
-        this.emitter.setGravity(200, 600);
+        this.emitter.setGravity(100, 500);
         this.emitter.startFollow(this);
     }
 
